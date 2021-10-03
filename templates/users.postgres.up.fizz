@@ -1,0 +1,15 @@
+create_table("users") {
+    t.Column("id", "integer", {primary: true})
+    t.Column("first_name", "string", {"size": 255})
+    t.Column("last_name", "string", {"size": 255})
+    t.Column("user_active", "integer", {"default": 0})
+    t.Column("access_level", "integer", {"default": 1})
+    t.Column("email", "string", {})
+    t.Column("password", "string", {"size": 60})
+    t.Column("google2fa_secret", "text", {})
+    t.Column("use_tfa", "integer", {"default": 0})
+    t.Column("login_types_id", "integer", {"unsigned": true})
+    t.Column("deleted_at", "timestamp", {"null": true})
+    t.Column("avatar", "string", {"size": 255, "default": ""})
+    t.Column("email_verified_at", "timestamp", {"null": true})
+}
