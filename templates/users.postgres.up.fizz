@@ -13,3 +13,6 @@ create_table("users") {
     t.Column("avatar", "string", {"size": 255, "default": ""})
     t.Column("email_verified_at", "timestamp", {"null": true})
 }
+
+sql("alter table users alter column created_at set default now();")
+sql("alter table users alter column updated_at set default now();")
