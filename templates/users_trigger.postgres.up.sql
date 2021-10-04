@@ -1,8 +1,12 @@
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.updated_at = NOW();
+    IF row(NEW.*) IS DISTINCT FROM row(OLD.*) THEN
+      NEW.modified = now();
     RETURN NEW;
+    ELSE
+          RETURN OLD;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
