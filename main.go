@@ -69,3 +69,35 @@ func runMigrations(tx *pop.Connection) error {
 	}
 	return nil
 }
+
+func migrateDown(tx *pop.Connection, steps ...int) error {
+	step := 1
+	if len(steps) > 0 {
+		step = steps[0]
+	}
+	fm, err := pop.NewFileMigrator(migrationPath, tx)
+	if err != nil {
+		return err
+	}
+
+	// run the migrations
+	err = fm.Down(step)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func migrateReset(tx *pop.Connection) error {
+	fm, err := pop.NewFileMigrator(migrationPath, tx)
+	if err != nil {
+		return err
+	}
+
+	// run the migrations
+	err = fm.Reset()
+	if err != nil {
+		return err
+	}
+	return nil
+}
