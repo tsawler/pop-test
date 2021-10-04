@@ -13,10 +13,6 @@ const migrationPath = "./migrations"
 //go:embed templates
 var templateFS embed.FS
 
-var migrations struct {
-	migrationMap map[string]pop.Migrations
-}
-
 func main() {
 	tx, err := pop.Connect("development")
 	if err != nil {
@@ -48,14 +44,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// create a file migrator
-	fm, err := pop.NewFileMigrator("./migrations", tx)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	// run the migrations
-	err = fm.Up()
+	err = runMigrations(tx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,7 +58,22 @@ func createMigration(up, down []byte, migrationName, migrationType string) error
 	if err != nil {
 		return err
 	}
+
 	// strangely, we have to wait one second so that the migration name is not duplicated
 	time.Sleep(1 * time.Second)
+	return nil
+}
+
+func runMigrations(tx *pop.Connection) error {
+	fm, err := pop.NewFileMigrator("./migrations", tx)
+	if err != nil {
+		return err
+	}
+
+	// run the migrations
+	err = fm.Up()
+	if err != nil {
+		return err
+	}
 	return nil
 }
