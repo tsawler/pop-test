@@ -57,7 +57,7 @@ func createMigration(up, down []byte, migrationName, migrationType string) error
 }
 
 func runMigrations(tx *pop.Connection) error {
-	fm, err := pop.NewFileMigrator("./migrations", tx)
+	fm, err := pop.NewFileMigrator(migrationPath, tx)
 	if err != nil {
 		return err
 	}
