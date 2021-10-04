@@ -36,14 +36,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// test table
-	whateverUp, _ := templateFS.ReadFile("templates/whatever.postgres.up.fizz")
-	whateverDown, _ := templateFS.ReadFile("templates/whatever.postgres.down.fizz")
-	err = createMigration(whateverUp, whateverDown, "whatever", "fizz")
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	// run the migrations
 	err = runMigrations(tx)
 	if err != nil {
