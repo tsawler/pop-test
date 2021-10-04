@@ -59,7 +59,7 @@ func createMigration(up, down []byte, migrationName, migrationType string) error
 		return err
 	}
 
-	// strangely, we have to wait one second so that the migration name is not duplicated
+	// we have to wait one second so that the migration name is not duplicated
 	time.Sleep(1 * time.Second)
 	return nil
 }
