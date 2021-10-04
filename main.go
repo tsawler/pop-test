@@ -21,17 +21,17 @@ func main() {
 	defer tx.Close()
 
 	// generate a fizz up/down migration for users table
-	usersUp, _ := templateFS.ReadFile("templates/users.postgres.up.fizz")
-	usersDown, _ := templateFS.ReadFile("templates/users.postgres.down.fizz")
-	err = createMigration(usersUp, usersDown, "users_table", "fizz")
+	up, _ := templateFS.ReadFile("templates/users.postgres.up.fizz")
+	down, _ := templateFS.ReadFile("templates/users.postgres.down.fizz")
+	err = createMigration(up, down, "users_table", "fizz")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// add auto update of updated_at function/trigger up/down migrations as sql
-	triggerUp, _ := templateFS.ReadFile("templates/users_trigger.postgres.up.sql")
-	triggerDown, _ := templateFS.ReadFile("templates/users_trigger.postgres.down.sql")
-	err = createMigration(triggerUp, triggerDown, "users_trigger", "sql")
+	up, _ = templateFS.ReadFile("templates/users_trigger.postgres.up.sql")
+	down, _ = templateFS.ReadFile("templates/users_trigger.postgres.down.sql")
+	err = createMigration(up, down, "users_trigger", "sql")
 	if err != nil {
 		log.Fatal(err)
 	}
