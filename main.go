@@ -28,7 +28,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// add auto update of updated_at function/trigger, and down migration
+	// add auto update of updated_at function/trigger up/down migrations as sql
 	triggerUp, _ := templateFS.ReadFile("templates/users_trigger.postgres.up.sql")
 	triggerDown, _ := templateFS.ReadFile("templates/users_trigger.postgres.down.sql")
 	err = createMigration(triggerUp, triggerDown, "users_trigger", "sql")
