@@ -101,3 +101,7 @@ func migrateReset(tx *pop.Connection) error {
 	}
 	return nil
 }
+
+func steps(tx *pop.Connection, steps int) error {
+	return migrateDown(tx, steps)
+}
