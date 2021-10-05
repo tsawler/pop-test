@@ -14,6 +14,7 @@ const migrationPath = "./migrations"
 var templateFS embed.FS
 
 func main() {
+	// Get a connection to the database. Values are read from config/database.yml
 	tx, err := pop.Connect("development")
 	if err != nil {
 		log.Panic(err)
